@@ -24,6 +24,7 @@ const Header2 = styled.h2`
 	margin-top: -2rem;
 	background: var(--c3);
 	z-index: 1;
+	opacity: 0.85;
 
 	::before,
 	::after {
@@ -33,7 +34,7 @@ const Header2 = styled.h2`
 		height: 0.15rem;
 		background-color: var(--c2);
 		position: absolute;
-		opacity: 0.75;
+		opacity: 0.7;
 		top: 1rem;
 	}
 
