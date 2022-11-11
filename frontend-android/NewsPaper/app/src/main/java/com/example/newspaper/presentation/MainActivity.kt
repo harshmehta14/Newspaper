@@ -1,5 +1,6 @@
 package com.example.newspaper.presentation
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -25,6 +26,7 @@ import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
 import com.example.newspaper.R
 import com.example.newspaper.presentation.login.LoginScreen
+import com.example.newspaper.presentation.newsApi.NewsApiScreen
 import com.example.newspaper.presentation.screens.Screens
 import com.example.newspaper.ui.theme.NewsPaperTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +37,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var account : Auth0
     private var cachedCredentials: Credentials? = null
     private var cachedUserProfile: UserProfile? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,11 +48,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsPaperTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screens.LoginScreen.route){
+                var startDest = Screens.LoginScreen.route
+                if (cachedCredentials != null) startDest = Screens.NewsApiScreen.route
+                NavHost(navController = navController, startDestination = startDest){
                     composable(route = Screens.LoginScreen.route){
                         LoginScreen(login = { login(navController) }){
                             logOut(navController)
                         }
+                    }
+                    composable(route = Screens.NewsApiScreen.route){
+                        NewsApiScreen(context = this@MainActivity)
                     }
                 }
             }
@@ -71,7 +77,7 @@ class MainActivity : ComponentActivity() {
                 override fun onSuccess(result: Credentials) {
                     cachedCredentials = result
                     Log.v("resutl","${result.accessToken}")
-
+                    navController.navigate(Screens.NewsApiScreen.route)
                 }
             })
     }

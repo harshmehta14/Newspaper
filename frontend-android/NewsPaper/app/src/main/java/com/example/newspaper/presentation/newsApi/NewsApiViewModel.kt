@@ -19,11 +19,12 @@ class NewsApiViewModel @Inject constructor():ViewModel() {
     val news = MutableLiveData<newsData>()
 
     fun newS(context: Context){
+        val queue = Volley.newRequestQueue(context)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET,link,null, {
                 Toast.makeText(context,"$it",Toast.LENGTH_SHORT).show()
         }, {
                 Toast.makeText(context,"Didnt work",Toast.LENGTH_SHORT).show()
         })
-
+        queue.add(jsonObjectRequest)
     }
 }
