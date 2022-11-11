@@ -20,6 +20,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "demo"]
     }
 
     buildTypes {
@@ -37,6 +38,7 @@ android {
     }
     buildFeatures {
         compose true
+        viewBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.1.1'
@@ -100,4 +102,7 @@ dependencies {
 
     //Paging 3.0
     implementation 'androidx.paging:paging-compose:1.0.0-alpha10'
+
+    // Auth0 Android SDK
+    implementation 'com.auth0.android:auth0:2.4.0'
 }
