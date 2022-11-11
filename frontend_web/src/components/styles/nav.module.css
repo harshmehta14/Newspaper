@@ -5,7 +5,7 @@
 	height: 3px;
 	background-color: var(--c3);
 	transition: all 0.3s ease-in-out;
-	margin: 0.3rem auto;
+	margin: 0.2rem auto;
 }
 
 .ham {

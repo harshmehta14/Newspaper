@@ -1,12 +1,19 @@
+@font-face {
+	font-family: "Rokkitt";
+	src: url("./fonts/Rokkitt-Medium.ttf");
+}
+
 :root {
 	--c1: #d87f62;
 	--c2: #0d321b;
 	--c3: #f2f5e9;
-	--f1: monospace;
+	--f1: Rokkitt, monospace;
 }
 
 * {
 	box-sizing: border-box;
+	font-family: var(--f1);
+	font-weight: 500;
 }
 
 body {

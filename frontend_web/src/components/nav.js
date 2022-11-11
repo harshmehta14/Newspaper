@@ -5,16 +5,16 @@ import { Link } from "gatsby"
 import { bar, ham } from "../components/styles/nav.module.css"
 
 const Pagelinks = styled.nav`
-	padding: 0.7rem 1rem;
+	padding: 0.7rem 1.5rem;
 	background-color: var(--c1);
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: space-between;
 	gap: 3rem;
 	ul {
 		margin: 0;
 		display: flex;
-		justify-content: space-between;
+		gap: 3rem;
 		align-items: center;
 		list-style: none;
 		padding: 0;
@@ -24,7 +24,7 @@ const Pagelinks = styled.nav`
 		text-decoration: none;
 		color: var(--c3);
 		font-size: 1.3rem;
-		font-weight: 700;
+		font-weight: 800;
 	}
 `
 
@@ -51,7 +51,17 @@ export default function Nav() {
 				<li>
 					<Link to="/">random link 2</Link>
 				</li>
+				<li>
+					<Link to="/">random link</Link>
+				</li>
+				<li>
+					<Link to="/">random link</Link>
+				</li>
+				<li>
+					<Link to="/">random link</Link>
+				</li>
 			</ul>
+			<div>{/* div to center the links */}</div>
 		</Pagelinks>
 	)
 }

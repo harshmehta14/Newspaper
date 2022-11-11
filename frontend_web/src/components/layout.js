@@ -30,9 +30,10 @@ const Header2 = styled.h2`
 		display: block;
 		content: " ";
 		width: 42rem;
-		height: 0.1rem;
+		height: 0.15rem;
 		background-color: var(--c2);
 		position: absolute;
+		opacity: 0.75;
 		top: 1rem;
 	}
 
