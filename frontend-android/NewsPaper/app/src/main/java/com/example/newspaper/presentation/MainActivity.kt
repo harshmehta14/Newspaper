@@ -13,6 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.callback.Callback
@@ -20,6 +24,8 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
 import com.example.newspaper.R
+import com.example.newspaper.presentation.login.LoginScreen
+import com.example.newspaper.presentation.screens.Screens
 import com.example.newspaper.ui.theme.NewsPaperTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,18 +46,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             NewsPaperTheme {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "Click to login", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Button(onClick = { login() }) {
-                        Text(text = "Login")
-                    }
-                    Spacer(modifier = Modifier.padding(20.dp))
-                    Button(onClick = { logOut() }) {
-                        Text(text = "LogOut")
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = Screens.LoginScreen.route){
+                    composable(route = Screens.LoginScreen.route){
+                        LoginScreen(login = { login(navController) }){
+                            logOut(navController)
+                        }
                     }
                 }
             }
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
     }
 
     /** Login function **/
-    fun login(){
+    fun login(navController: NavController){
         WebAuthProvider.login(account)
             .withScheme("demo")
             .withScope("openid profile email")
@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
     }
 
     /** LogOut function **/
-    fun logOut(){
+    fun logOut(navController: NavController){
         WebAuthProvider.logout(account)
             .withScheme("demo")
             .start(this, object : Callback<Void?, AuthenticationException> {
