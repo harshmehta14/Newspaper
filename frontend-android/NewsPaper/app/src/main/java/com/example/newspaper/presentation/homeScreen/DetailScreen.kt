@@ -27,7 +27,7 @@ fun DetailScreen() {
                 modifier = Modifier
                     .background(color = Color(0x6B7A7272))
                     .fillMaxWidth()
-                    .height(45.dp)
+                    .height(50.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -38,17 +38,18 @@ fun DetailScreen() {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "CHOOSE YOUR NEWSPAPER", style = TextStyle(fontSize = 15.sp))
-                        Text(text = "FOR YOUR DOORSTEP TOMORROW", style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp))
+                        Text(text = "CHOOSE YOUR NEWSPAPER", style = TextStyle(fontSize = 10.sp))
+                        Text(text = "FOR YOUR DOORSTEP TOMORROW", style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 12.sp))
                     }
                     Box(
                         modifier = Modifier
-                            .height(30.dp)
-                            .width(100.dp)
-                            .background(Color.Green)
                             .clip(
                                 RoundedCornerShape(10.dp)
                             )
+                            .height(30.dp)
+                            .width(100.dp)
+                            .background(Color.Green)
+
                     )
                 }
             }}

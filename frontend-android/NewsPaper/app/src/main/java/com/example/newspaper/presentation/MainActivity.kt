@@ -25,6 +25,7 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
 import com.example.newspaper.R
+import com.example.newspaper.presentation.homeScreen.DetailScreen
 import com.example.newspaper.presentation.login.LoginScreen
 import com.example.newspaper.presentation.newsApi.NewsApiScreen
 import com.example.newspaper.presentation.screens.Screens
@@ -59,6 +60,9 @@ class MainActivity : ComponentActivity() {
                     composable(route = Screens.NewsApiScreen.route){
                         NewsApiScreen(context = this@MainActivity)
                     }
+                    composable(route = Screens.DetailScreen.route){
+                        DetailScreen()
+                    }
                 }
             }
         }
@@ -77,7 +81,7 @@ class MainActivity : ComponentActivity() {
                 override fun onSuccess(result: Credentials) {
                     cachedCredentials = result
                     Log.v("resutl","${result.accessToken}")
-                    navController.navigate(Screens.NewsApiScreen.route)
+                    navController.navigate(Screens.DetailScreen.route)
                 }
             })
     }
