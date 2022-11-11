@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import Layout from "../components/layout"
-import icon from "../images/icon.png"
+import "../components/styles/global.css"
 import LoginButton from "../components/LoginButton"
 
 const IndexPage = () => {
@@ -22,10 +22,6 @@ export const Head = () => (
 		<meta
 			name="keywords"
 			content="newspaper app"
-		/>
-		<meta
-			name="image"
-			content={icon}
 		/>
 	</>
 )
