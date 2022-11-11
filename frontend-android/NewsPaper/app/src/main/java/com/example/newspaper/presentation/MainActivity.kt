@@ -58,6 +58,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /** Login function **/
     fun login(){
         WebAuthProvider.login(account)
             .withScheme("demo")
@@ -75,6 +76,7 @@ class MainActivity : ComponentActivity() {
             })
     }
 
+    /** LogOut function **/
     fun logOut(){
         WebAuthProvider.logout(account)
             .withScheme("demo")

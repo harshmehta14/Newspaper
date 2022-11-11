@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NewsModule {
-
     @Provides
     @Singleton
     fun provideNewsApi(gson: Gson) : Retrofit = Retrofit.Builder()
