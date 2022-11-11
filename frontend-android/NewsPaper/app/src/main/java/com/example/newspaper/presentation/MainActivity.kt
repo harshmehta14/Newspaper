@@ -19,6 +19,7 @@ import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
+import com.example.newspaper.R
 import com.example.newspaper.ui.theme.NewsPaperTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,6 +58,7 @@ class MainActivity : ComponentActivity() {
         WebAuthProvider.login(account)
             .withScheme("news")
             .withScope("openid profile email")
+            .withAudience("https://${getString(R.string.com_auth0_domain)}/api/v2/")
             .start(this,object : Callback<Credentials, AuthenticationException>{
                 override fun onFailure(error: AuthenticationException) {
                     cachedCredentials = null
