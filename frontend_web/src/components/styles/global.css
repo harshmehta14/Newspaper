@@ -1,0 +1,15 @@
+:root {
+	--c1: red;
+	--c2: black;
+	--c3: gray;
+	--f1: monospace;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
