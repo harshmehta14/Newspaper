@@ -1,17 +1,17 @@
 package com.example.newspaper.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
@@ -49,6 +49,10 @@ class MainActivity : ComponentActivity() {
                     Button(onClick = { login() }) {
                         Text(text = "Login")
                     }
+                    Spacer(modifier = Modifier.padding(20.dp))
+                    Button(onClick = { logOut() }) {
+                        Text(text = "LogOut")
+                    }
                 }
             }
         }
@@ -56,9 +60,8 @@ class MainActivity : ComponentActivity() {
 
     fun login(){
         WebAuthProvider.login(account)
-            .withScheme("news")
+            .withScheme("demo")
             .withScope("openid profile email")
-            .withAudience("https://${getString(R.string.com_auth0_domain)}/api/v2/")
             .start(this,object : Callback<Credentials, AuthenticationException>{
                 override fun onFailure(error: AuthenticationException) {
                     cachedCredentials = null
@@ -66,7 +69,25 @@ class MainActivity : ComponentActivity() {
 
                 override fun onSuccess(result: Credentials) {
                     cachedCredentials = result
-                    Toast.makeText(this@MainActivity,"$result", Toast.LENGTH_LONG).show()
+                    Log.v("resutl","${result.accessToken}")
+
+                }
+            })
+    }
+
+    fun logOut(){
+        WebAuthProvider.logout(account)
+            .withScheme("demo")
+            .start(this, object : Callback<Void?, AuthenticationException> {
+                override fun onSuccess(payload: Void?) {
+                    // The user has been logged out!
+                    cachedCredentials = null
+                    cachedUserProfile = null
+                    Log.v("logout","Success")
+                }
+
+                override fun onFailure(exception: AuthenticationException) {
+                    Log.v("logout","Failure")
                 }
             })
     }
