@@ -1,19 +1,9 @@
 package com.example.newspaper.presentation
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,8 +14,9 @@ import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.android.result.UserProfile
-import com.example.newspaper.R
 import com.example.newspaper.presentation.homeScreen.DetailScreen
+import com.example.newspaper.presentation.homeScreen.HomeScreen
+import com.example.newspaper.presentation.homeScreen.SettingScreen
 import com.example.newspaper.presentation.login.LoginScreen
 import com.example.newspaper.presentation.newsApi.NewsApiScreen
 import com.example.newspaper.presentation.screens.Screens
@@ -63,6 +54,12 @@ class MainActivity : ComponentActivity() {
                     composable(route = Screens.DetailScreen.route){
                         DetailScreen()
                     }
+                    composable(route = Screens.SettingScreen.route){
+                        SettingScreen(navController = navController)
+                    }
+                    composable(route = Screens.HomeScreen.route){
+                        HomeScreen(navController = navController)
+                    }
                 }
             }
         }
@@ -81,7 +78,7 @@ class MainActivity : ComponentActivity() {
                 override fun onSuccess(result: Credentials) {
                     cachedCredentials = result
                     Log.v("resutl","${result.accessToken}")
-                    navController.navigate(Screens.DetailScreen.route)
+                    navController.navigate(Screens.HomeScreen.route)
                 }
             })
     }
