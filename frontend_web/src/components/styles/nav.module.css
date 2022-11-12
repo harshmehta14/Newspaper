@@ -21,11 +21,22 @@
 	display: none;
 }
 
+.hide_link {
+	display: none;
+}
+
+@media (max-width: 950px) {
+	.hide_link {
+		display: block;
+	}
+}
+
 /* media queries */
 @media (max-width: 850px) {
 	.ham {
 		display: block;
 		cursor: pointer;
+		z-index: 4;
 	}
 
 	.align {
@@ -38,17 +49,21 @@
 		flex-direction: column;
 		gap: 2rem;
 		text-align: center;
-		transition: 0.3s ease-in-out;
-		position: fixed;
-		top: 4rem;
+		position: absolute;
+		top: 0;
+		left: 0;
+		transition: height 0.3s;
+		height: 1rem;
+		overflow: hidden;
 		width: 100%;
-		left: 100vh;
+		z-index: -2;
 		background-color: inherit;
 		padding: 10rem 0 25rem 0;
 	} /* Now it is actually hidden */
 
 	.innerlinks.active {
-		left: 0;
+		height: 26rem;
+		z-index: 3;
 	}
 
 	.ham.active .bar:nth-child(2) {

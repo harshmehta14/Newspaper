@@ -8,12 +8,15 @@ import {
 	innerlinks,
 	active,
 	align,
+	hide_link,
 } from "../components/styles/nav.module.css"
 import classNames from "classnames"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const Pagelinks = styled.nav`
 	padding: 0.7rem 1.5rem;
 	background-color: var(--c1);
+	position: relative;
 
 	ul {
 		margin: 0;
@@ -48,6 +51,8 @@ export default function Nav() {
 	const active_links = classNames(innerlinks, active)
 	const active_ham = classNames(ham, active)
 
+	const { isAuthenticated, logout, loginWithRedirect } = useAuth0()
+
 	return (
 		<Pagelinks>
 			<div
@@ -78,6 +83,24 @@ export default function Nav() {
 				<li>
 					<Link to="/distribution">Distribution</Link>
 				</li>
+				{!isAuthenticated && (
+					<li>
+						<Link
+							onClick={loginWithRedirect}
+							className={hide_link}>
+							Log in
+						</Link>
+					</li>
+				)}
+				{isAuthenticated && (
+					<li>
+						<Link
+							onClick={logout}
+							className={hide_link}>
+							Logout
+						</Link>
+					</li>
+				)}
 			</ul>
 			<div className={align}></div>
 		</Pagelinks>

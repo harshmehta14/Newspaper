@@ -1,3 +1,4 @@
-.hide {
-	align-self: center;
+.alert {
+	text-align: center;
+	color: blue;
 }

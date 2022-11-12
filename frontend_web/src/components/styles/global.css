@@ -27,3 +27,21 @@ main {
 	margin-top: 10rem;
 	padding: 2rem;
 }
+
+@media (max-width: 1300px) {
+	body {
+		padding: 0 3.5rem;
+	}
+}
+
+@media (max-width: 1050px) {
+	body {
+		padding: 0 2rem;
+	}
+}
+
+@media (max-width: 600px) {
+	body {
+		padding: 0 1rem;
+	}
+}

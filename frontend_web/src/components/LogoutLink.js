@@ -13,6 +13,18 @@ const Logout = styled.a`
 		cursor: pointer;
 		color: var(--c4);
 	}
+
+	@media (max-width: 1300px) {
+		right: 3.5rem;
+	}
+
+	@media (max-width: 1050px) {
+		right: 2rem;
+	}
+
+	@media (max-width: 950px) {
+		display: none;
+	}
 `
 
 function LogoutLink() {
