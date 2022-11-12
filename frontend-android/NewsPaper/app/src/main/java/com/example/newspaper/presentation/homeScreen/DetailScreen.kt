@@ -5,11 +5,14 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +24,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DetailScreen() {
+    val settingSelected = remember {
+        mutableStateOf(false)
+    }
+    val profileSelected = remember{
+        mutableStateOf(false)
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,7 +61,83 @@ fun DetailScreen() {
 
                     )
                 }
-            }}
+            }
+        },floatingActionButton = {
+            FloatingActionButton(
+                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 50.dp),
+                onClick = {
+                },
+                shape = RoundedCornerShape(50),
+                backgroundColor = Color.White
+            ) {
+                Icon(Icons.Filled.Home, tint = Color.Red, contentDescription = "Home")
+            }
+        },
+        isFloatingActionButtonDocked = true,
+        floatingActionButtonPosition = FabPosition.Center,
+        bottomBar = {
+            BottomAppBar(
+                cutoutShape = RoundedCornerShape(50),
+                content = {
+                    BottomNavigation {
+                        BottomNavigationItem(
+                            selected = profileSelected.value,
+                            selectedContentColor = Color.Red,
+                            unselectedContentColor = Color.White,
+                            onClick = {
+                                      profileSelected.value = !profileSelected.value
+                                    settingSelected.value = false
+                            },
+                            icon = {
+                                Icon(Icons.Filled.Person, contentDescription = "Profile")
+                            },
+                            label = { Text(text = "Profile") },
+                            alwaysShowLabel = false,
+                            modifier = Modifier.background(Color.Black)
+                        )
+//                        BottomNavigationItem(
+//                            selected = true,
+//                            selectedContentColor = Color.Red,
+//                            onClick = {},
+//                            icon = {
+//                                Icon(Icons.Filled.Person, contentDescription = "Profile")
+//                            },
+//                            label = { Text(text = "Profile") },
+//                            alwaysShowLabel = false,
+//                            modifier = Modifier.background(Color.Black)
+//                        )
+
+                        BottomNavigationItem(
+                            selected = settingSelected.value,
+                            selectedContentColor = Color.Red,
+                            unselectedContentColor = Color.White,
+                            onClick = {
+                                settingSelected.value = !settingSelected.value
+                                profileSelected.value = false
+                            },
+                            icon = {
+                                Icon(Icons.Filled.Settings, contentDescription = "setting")
+                            },
+                            label = { Text(text = "Setting") },
+                            alwaysShowLabel = false,
+                            modifier = Modifier.background(Color.Black)
+                        )
+//                        BottomNavigationItem(
+//                            selected = true,
+//                            selectedContentColor = Color.Red,
+//                            onClick = {
+//
+//                            },
+//                            icon = {
+//                                Icon(Icons.Filled.Settings, contentDescription = "setting")
+//                            },
+//                            label = { Text(text = "Setting") },
+//                            alwaysShowLabel = false,
+//                            modifier = Modifier.background(Color.Black)
+//                        )
+                    }
+                })
+        },
     ) {
         Column(
             modifier = Modifier
