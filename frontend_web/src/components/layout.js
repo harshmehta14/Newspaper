@@ -4,6 +4,9 @@ import * as React from "react"
 import styled from "styled-components"
 import "../components/styles/global.css"
 import Nav from "./nav"
+import { Link } from "gatsby"
+import LoginLink from "./LoginLink"
+import LogoutLink from "./LogoutLink"
 // import Footer from "./footer"
 
 const Container = styled.div`
@@ -15,6 +18,11 @@ const Header = styled.h1`
 	font-size: 4rem;
 	text-transform: uppercase;
 	margin-top: 3rem;
+
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
 `
 
 const Header2 = styled.h2`
@@ -45,14 +53,60 @@ const Header2 = styled.h2`
 	::after {
 		right: 0;
 	}
+
+	@media (max-width: 1700px) {
+		::before,
+		::after {
+			width: 35rem;
+		}
+	}
+
+	@media (max-width: 1490px) {
+		::before,
+		::after {
+			width: 30rem;
+		}
+	}
+
+	@media (max-width: 1320px) {
+		::before,
+		::after {
+			width: 25rem;
+		}
+	}
+
+	@media (max-width: 1150px) {
+		::before,
+		::after {
+			width: 20rem;
+		}
+	}
+
+	@media (max-width: 1000px) {
+		::before,
+		::after {
+			width: 15rem;
+		}
+	}
+
+	@media (max-width: 850px) {
+		::before,
+		::after {
+			width: 10rem;
+		}
+	}
 `
 
 const Layout = ({ children }) => {
 	return (
 		<>
+			<LoginLink />
+			<LogoutLink />
 			<Container>
-				<Header>Daily newspaper</Header>
-				<Header2>Random content here</Header2>
+				<Header>
+					<Link to="/">Daily newspaper</Link>
+				</Header>
+				<Header2>Simply News</Header2>
 				<Nav />
 				<main>{children}</main>
 			</Container>

@@ -15,7 +15,7 @@ const Logout = styled.a`
 	}
 `
 
-function LogoutButton() {
+function LogoutLink() {
 	const { isAuthenticated, logout } = useAuth0()
 
 	return (
@@ -30,4 +30,4 @@ function LogoutButton() {
 	)
 }
 
-export default LogoutButton
+export default LogoutLink

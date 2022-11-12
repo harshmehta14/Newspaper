@@ -8,6 +8,7 @@ const Login = styled.a`
 	right: 5rem;
 	font-size: 2rem;
 	opacity: 0.85;
+	text-decoration: none;
 
 	:hover {
 		cursor: pointer;
@@ -15,10 +16,10 @@ const Login = styled.a`
 	}
 `
 
-function LoginButton() {
-	const { isAuthenticated, loginWithRedirect } = useAuth0()
+function LoginLink() {
+	const { isAuthenticated } = useAuth0()
 
-	return !isAuthenticated && <Login onClick={loginWithRedirect}>Log in</Login>
+	return !isAuthenticated && <Login href="/account">Log in</Login>
 }
 
-export default LoginButton
+export default LoginLink

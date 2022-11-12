@@ -8,7 +8,66 @@
 	margin: 0.2rem auto;
 }
 
+.innerlinks {
+	display: flex;
+	gap: 3rem;
+}
+
 .ham {
-	display: block;
-	cursor: pointer;
+	display: none;
+}
+
+.align {
+	display: none;
+}
+
+/* media queries */
+@media (max-width: 850px) {
+	.ham {
+		display: block;
+		cursor: pointer;
+	}
+
+	.align {
+		content: " ";
+		display: block;
+	}
+
+	.innerlinks {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		text-align: center;
+		transition: 0.3s ease-in-out;
+		position: fixed;
+		top: 4rem;
+		width: 100%;
+		left: 100vh;
+		background-color: inherit;
+		padding: 10rem 0 25rem 0;
+	} /* Now it is actually hidden */
+
+	.innerlinks.active {
+		left: 0;
+	}
+
+	.ham.active .bar:nth-child(2) {
+		display: none;
+	}
+
+	.ham.active .bar:nth-child(1) {
+		transform: translateY(9px) rotate(45deg);
+	}
+
+	.ham.active .bar:nth-child(3) {
+		transform: translateY(0) rotate(-45deg);
+	}
+
+	ul li .button {
+		border: none;
+		padding: 0;
+		width: auto;
+		margin: 0 auto;
+		transition: none;
+	}
 }

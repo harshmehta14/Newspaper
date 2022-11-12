@@ -2,20 +2,25 @@ import * as React from "react"
 import styled from "styled-components"
 import { useState } from "react"
 import { Link } from "gatsby"
-import { bar, ham } from "../components/styles/nav.module.css"
+import {
+	bar,
+	ham,
+	innerlinks,
+	active,
+	align,
+} from "../components/styles/nav.module.css"
+import classNames from "classnames"
 
 const Pagelinks = styled.nav`
 	padding: 0.7rem 1.5rem;
 	background-color: var(--c1);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 3rem;
+
 	ul {
 		margin: 0;
 		display: flex;
 		gap: 3rem;
 		align-items: center;
+		justify-content: center;
 		list-style: none;
 		padding: 0;
 	}
@@ -26,6 +31,11 @@ const Pagelinks = styled.nav`
 		font-size: 1.3rem;
 		font-weight: 800;
 	}
+
+	@media (max-width: 850px) {
+		display: flex;
+		justify-content: space-between;
+	}
 `
 
 export default function Nav() {
@@ -35,33 +45,41 @@ export default function Nav() {
 		setToggle(!toggle)
 	}
 
+	const active_links = classNames(innerlinks, active)
+	const active_ham = classNames(ham, active)
+
 	return (
 		<Pagelinks>
 			<div
-				className={ham}
+				className={toggle ? active_ham : ham}
+				onClick={handleToggle}
 				role="navigation">
 				<span className={bar}></span>
 				<span className={bar}></span>
 				<span className={bar}></span>
 			</div>
-			<ul>
+			<ul
+				ul
+				className={toggle ? active_links : innerlinks}
+				onClick={handleToggle}
+				role="navigation">
 				<li>
-					<Link to="/">random link</Link>
+					<Link to="/">Home</Link>
 				</li>
 				<li>
-					<Link to="/">random link 2</Link>
+					<Link to="/account">Account</Link>
 				</li>
 				<li>
-					<Link to="/">random link</Link>
+					<Link to="/customers">Customers</Link>
 				</li>
 				<li>
-					<Link to="/">random link</Link>
+					<Link to="/paperboys">Paperboys</Link>
 				</li>
 				<li>
-					<Link to="/">random link</Link>
+					<Link to="/distribution">Distribution</Link>
 				</li>
 			</ul>
-			<div>{/* div to center the links */}</div>
+			<div className={align}></div>
 		</Pagelinks>
 	)
 }
