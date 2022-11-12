@@ -12,6 +12,8 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,11 +24,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.newspaper.data.dclass.distributor.Distributor
 import com.example.newspaper.presentation.screens.Screens
 
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltViewModel()) {
+
+    val distributor by viewModel.distributro.observeAsState()
+
     val settingSelected = remember {
         mutableStateOf(false)
     }
@@ -138,7 +145,7 @@ fun DetailScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color(0xFFE4EDF8)),
+                .background(color = Color(0xFFFFE9C8)),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
