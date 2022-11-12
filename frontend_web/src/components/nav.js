@@ -41,6 +41,8 @@ const Pagelinks = styled.nav`
 	}
 `
 
+const Log = styled.a``
+
 export default function Nav() {
 	const [toggle, setToggle] = useState(false)
 
@@ -85,20 +87,20 @@ export default function Nav() {
 				</li>
 				{!isAuthenticated && (
 					<li>
-						<Link
+						<Log
 							onClick={loginWithRedirect}
 							className={hide_link}>
 							Log in
-						</Link>
+						</Log>
 					</li>
 				)}
 				{isAuthenticated && (
 					<li>
-						<Link
+						<Log
 							onClick={logout}
 							className={hide_link}>
 							Logout
-						</Link>
+						</Log>
 					</li>
 				)}
 			</ul>

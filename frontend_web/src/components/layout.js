@@ -97,6 +97,10 @@ const Header2 = styled.h2`
 	}
 `
 
+const Days = ["Monday", "", "Sunday"]
+
+const date = new Date()
+
 const Layout = ({ children }) => {
 	return (
 		<>
@@ -106,7 +110,10 @@ const Layout = ({ children }) => {
 				<Header>
 					<Link to="/">Daily newspaper</Link>
 				</Header>
-				<Header2>Simply News</Header2>
+				<Header2>
+					{date.getDay()},{date.getMonth()} {date.getDate()},
+					{date.getFullYear()}
+				</Header2>
 				<Nav />
 				<main>{children}</main>
 			</Container>
