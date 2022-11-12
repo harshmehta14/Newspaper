@@ -1,30 +1,54 @@
 package com.example.newspaper.presentation.login
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import com.example.newspaper.R
 
 @Composable
 fun LoginScreen(login : () ->Unit,logOut:()->Unit) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(color = Color.Black),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Click to login", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-        Button(onClick = { login.invoke() }) {
-            Text(text = "Login")
-        }
+        Image(
+            painter = painterResource(id = R.drawable.np),
+            contentDescription = null,
+            modifier = Modifier
+                .height(150.dp)
+                .width(150.dp)
+        )
         Spacer(modifier = Modifier.padding(20.dp))
-        Button(onClick = { logOut.invoke() }) {
-            Text(text = "LogOut")
+        Text(text = "Click to login", fontSize = 20.sp, fontWeight = FontWeight.Bold,color = Color(0xFF03A9F4))
+        Spacer(modifier = Modifier.padding(8.dp))
+        Button(onClick = { login.invoke() }, modifier = Modifier
+            .clip(RoundedCornerShape(40.dp))
+            .width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
+            .height(LocalConfiguration.current.screenHeightDp.dp / 12),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.White
+            )
+        ) {
+            Text(text = "Login",fontSize = 18.sp, color = Color(0xFF03A9F4))
         }
+//        Spacer(modifier = Modifier.padding(20.dp))
+//        Button(onClick = { logOut.invoke() }) {
+//            Text(text = "LogOut")
+//        }
     }
 }

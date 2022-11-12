@@ -38,23 +38,25 @@ fun NewsApiScreen(viewModel: NewsApiViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState()).background(Color.Black),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         news?.articles?.forEach {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Card(border = BorderStroke(5.dp, color = Color.Green), shape = RoundedCornerShape(20.dp), backgroundColor = Color.Gray) {
+                Card( shape = RoundedCornerShape(20.dp), backgroundColor = Color.White, modifier = Modifier.padding(horizontal = 5.dp, vertical = 5.dp)) {
                     Column(
                         Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text(text = if (it.title == null) "No title" else it.title)
+                        Spacer(modifier = Modifier.padding(30.dp))
+                        Text(text = if (it.title == null) "No title" else it.title, modifier = Modifier.align(Alignment.CenterHorizontally).padding(start = 5.dp, end = 5.dp),color = Color(0xFF03A9F4))
+                        Spacer(modifier = Modifier.padding(10.dp),)
+                        Text(text = it.description,color = Color(0xFF03A9F4), modifier = Modifier.align(Alignment.CenterHorizontally).padding(start = 5.dp, end = 5.dp))
                         Spacer(modifier = Modifier.padding(10.dp))
-                        Text(text = it.description, modifier = Modifier.align(Alignment.CenterHorizontally))
-                        Spacer(modifier = Modifier.padding(10.dp))
-                        Text(text = "Author : "+it.author)
+                        Text(text = "Author : "+it.author, color = Color(0xFF03A9F4),modifier = Modifier.align(Alignment.CenterHorizontally).padding(start = 5.dp, end = 5.dp))
+                        Spacer(modifier = Modifier.padding(30.dp))
                     }    
                 }
                 Spacer(modifier = Modifier.padding(10.dp))

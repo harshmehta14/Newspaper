@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsPaperTheme {
                 val navController = rememberNavController()
-                var startDest = Screens.LoginScreen.route
+                var startDest = Screens.HomeScreen.route
                 if (cachedCredentials != null) startDest = Screens.NewsApiScreen.route
                 NavHost(navController = navController, startDestination = startDest){
                     composable(route = Screens.LoginScreen.route){
@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                 override fun onSuccess(result: Credentials) {
                     cachedCredentials = result
                     Log.v("resutl","${result.accessToken}")
-                    navController.navigate(Screens.HomeScreen.route)
+                    navController.navigate(Screens.DetailScreen.route)
                 }
             })
     }

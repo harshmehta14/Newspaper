@@ -43,7 +43,7 @@ fun HomeScreen(navController: NavController) {
         Spacer(modifier = Modifier.padding(20.dp))
         Button(
             onClick = {
-                navController.navigate(Screens.DetailScreen.route)
+                navController.navigate(Screens.LoginScreen.route)
             }, modifier = Modifier
                 .clip(RoundedCornerShape(40.dp))
                 .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
