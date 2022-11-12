@@ -21,5 +21,11 @@ fun NewsApiScreen(viewModel: NewsApiViewModel = hiltViewModel(),context:Componen
         Button(onClick = { viewModel.newS(context) }) {
             Text(text = "get news")
         }
+
+        if (viewModel.news.value!=null){
+            viewModel.news.value?.articles?.forEach {
+
+            }
+        }
     }
 }

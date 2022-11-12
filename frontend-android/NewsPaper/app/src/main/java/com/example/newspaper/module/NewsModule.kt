@@ -20,7 +20,7 @@ object NewsModule {
     @Provides
     @Singleton
     fun provideNewsApi(gson: Gson) : Retrofit = Retrofit.Builder()
-        .baseUrl("https://newsapi.org/v2/")
+        .baseUrl("https://node-backend.harshmehta13.repl.co/")
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
