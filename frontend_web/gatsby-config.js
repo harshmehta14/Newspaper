@@ -10,7 +10,7 @@ module.exports = {
 		{
 			resolve: "gatsby-plugin-manifest",
 			options: {
-				icon: "./src/images/icon.png", // Relative to the project's root folder
+				icon: "./src/images/logo.jpeg", // Relative to the project's root folder
 			},
 		},
 		"gatsby-plugin-styled-components",
