@@ -1,79 +1,63 @@
 package com.example.newspaper.presentation.newsApi
 
+import android.annotation.SuppressLint
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun NewsApiScreen(viewModel: NewsApiViewModel = hiltViewModel(),context:ComponentActivity) {
+fun NewsApiScreen(viewModel: NewsApiViewModel = hiltViewModel()) {
+
+    val news by viewModel.news.observeAsState()
+    val context1 = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    coroutineScope.launch {
+        viewModel.newS(context1)
+    }
+
+
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { viewModel.newS(context) }) {
-            Text(text = "get news")
-        }
-
-        if (viewModel.news.value!=null){
-            viewModel.news.value?.articles?.forEach {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp)),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+        news?.articles?.forEach {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Card(border = BorderStroke(5.dp, color = Color.Green), shape = RoundedCornerShape(20.dp), backgroundColor = Color.Gray) {
                     Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        if (it.urlToImage==null){
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                                    .clip(RoundedCornerShape(20.dp)),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = "No image")
-                            }
-                        }
-                        else{
-                            Image(
-                                painter = rememberImagePainter(data = it.urlToImage),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                                    .clip(RoundedCornerShape(20.dp))
-                            )
-                        }
-                        Spacer(modifier = Modifier.padding(15.dp))
-                        Text(text = it.title)
+                        Text(text = if (it.title == null) "No title" else it.title)
                         Spacer(modifier = Modifier.padding(10.dp))
-                        Text(text = it.description)
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "Author :"+it.author)
-                        }
-                    }
+                        Text(text = it.description, modifier = Modifier.align(Alignment.CenterHorizontally))
+                        Spacer(modifier = Modifier.padding(10.dp))
+                        Text(text = "Author : "+it.author)
+                    }    
                 }
+                Spacer(modifier = Modifier.padding(10.dp))
             }
         }
     }
