@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun SettingScreen(navController:NavController) {
+fun SettingScreen(navController:NavController,logOut:()->Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,6 +55,7 @@ fun SettingScreen(navController:NavController) {
         Row(
             modifier = Modifier
                 .clickable {
+                    logOut.invoke()
                 }
                 .height(LocalConfiguration.current.screenHeightDp.dp / 12)
                 .width(

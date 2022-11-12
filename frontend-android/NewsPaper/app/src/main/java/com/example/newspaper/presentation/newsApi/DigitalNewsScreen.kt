@@ -44,7 +44,7 @@ fun NewsApiScreen(viewModel: NewsApiViewModel = hiltViewModel()) {
     ) {
         news?.articles?.forEach {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Card( shape = RoundedCornerShape(20.dp), backgroundColor = Color.White, modifier = Modifier.padding(horizontal = 5.dp, vertical = 5.dp)) {
+                Card( shape = RoundedCornerShape(20.dp), backgroundColor = Color(0xFFFFE9C8), modifier = Modifier.padding(horizontal = 5.dp, vertical = 5.dp)) {
                     Column(
                         Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,

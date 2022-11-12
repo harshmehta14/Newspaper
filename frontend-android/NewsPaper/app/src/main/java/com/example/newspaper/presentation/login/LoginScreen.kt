@@ -20,31 +20,38 @@ import androidx.compose.ui.unit.sp
 import com.example.newspaper.R
 
 @Composable
-fun LoginScreen(login : () ->Unit,logOut:()->Unit) {
+fun LoginScreen(login : () ->Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().background(color = Color.Black),
-        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Black),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.np),
-            contentDescription = null,
-            modifier = Modifier
-                .height(150.dp)
-                .width(150.dp)
-        )
-        Spacer(modifier = Modifier.padding(20.dp))
-        Text(text = "Click to login", fontSize = 20.sp, fontWeight = FontWeight.Bold,color = Color(0xFF03A9F4))
-        Spacer(modifier = Modifier.padding(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth().background(Color(0xEEFFFFFF)),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.news),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth().height(560.dp)
+            )
+        }
+//        Spacer(modifier = Modifier.padding(20.dp))
+//        Text(text = "Click to login", fontSize = 20.sp, fontWeight = FontWeight.Bold,color = Color(0xFF03A9F4))
+        Spacer(modifier = Modifier.padding(30.dp))
         Button(onClick = { login.invoke() }, modifier = Modifier
-            .clip(RoundedCornerShape(40.dp))
+            .clip(RoundedCornerShape(10.dp))
             .width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
             .height(LocalConfiguration.current.screenHeightDp.dp / 12),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.White
             )
         ) {
-            Text(text = "Login",fontSize = 18.sp, color = Color(0xFF03A9F4))
+            Text(text = "Login",fontSize = 20.sp, color = Color(0xFF03A9F4), fontWeight = FontWeight.Bold)
         }
 //        Spacer(modifier = Modifier.padding(20.dp))
 //        Button(onClick = { logOut.invoke() }) {

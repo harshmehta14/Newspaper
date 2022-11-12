@@ -37,8 +37,8 @@ fun HomeScreen(navController: NavController) {
             painter = painterResource(id = R.drawable.np),
             contentDescription = null,
             modifier = Modifier
-                .height(100.dp)
-                .width(100.dp)
+                .height(150.dp)
+                .width(150.dp)
         )
         Spacer(modifier = Modifier.padding(20.dp))
         Button(

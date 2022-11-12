@@ -93,12 +93,14 @@ fun DetailScreen(navController: NavController) {
                                     navController.navigate(Screens.NewsApiScreen.route)
                             },
                             icon = {
-                                Icon(Icons.Filled.Info, contentDescription = "Info")
+                                Icon(Icons.Filled.Info, contentDescription = "Online News")
                             },
-                            label = { Text(text = "Profile") },
+                            label = { Text(text = "Online News") },
                             alwaysShowLabel = false,
                             modifier = Modifier.background(Color.Black)
                         )
+
+
 
                         BottomNavigationItem(
                             selected = settingSelected.value,
@@ -107,6 +109,7 @@ fun DetailScreen(navController: NavController) {
                             onClick = {
                                 settingSelected.value = !settingSelected.value
                                 profileSelected.value = false
+                                navController.navigate(Screens.SettingScreen.route)
                             },
                             icon = {
                                 Icon(Icons.Filled.Settings, contentDescription = "setting")
