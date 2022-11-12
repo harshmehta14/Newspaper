@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         NewsApiScreen(context = this@MainActivity)
                     }
                     composable(route = Screens.DetailScreen.route){
-                        DetailScreen()
+                        DetailScreen(navController)
                     }
                     composable(route = Screens.SettingScreen.route){
                         SettingScreen(navController = navController)

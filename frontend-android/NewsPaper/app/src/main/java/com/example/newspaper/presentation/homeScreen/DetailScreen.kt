@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
@@ -21,9 +22,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.newspaper.presentation.screens.Screens
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(navController: NavController) {
     val settingSelected = remember {
         mutableStateOf(false)
     }
@@ -87,25 +90,15 @@ fun DetailScreen() {
                             onClick = {
                                       profileSelected.value = !profileSelected.value
                                     settingSelected.value = false
+                                    navController.navigate(Screens.NewsApiScreen.route)
                             },
                             icon = {
-                                Icon(Icons.Filled.Person, contentDescription = "Profile")
+                                Icon(Icons.Filled.Info, contentDescription = "Info")
                             },
                             label = { Text(text = "Profile") },
                             alwaysShowLabel = false,
                             modifier = Modifier.background(Color.Black)
                         )
-//                        BottomNavigationItem(
-//                            selected = true,
-//                            selectedContentColor = Color.Red,
-//                            onClick = {},
-//                            icon = {
-//                                Icon(Icons.Filled.Person, contentDescription = "Profile")
-//                            },
-//                            label = { Text(text = "Profile") },
-//                            alwaysShowLabel = false,
-//                            modifier = Modifier.background(Color.Black)
-//                        )
 
                         BottomNavigationItem(
                             selected = settingSelected.value,
