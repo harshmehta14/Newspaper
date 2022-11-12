@@ -38,7 +38,7 @@ const Header2 = styled.h2`
 	::after {
 		display: block;
 		content: " ";
-		width: 42rem;
+		width: 30%;
 		height: 0.15rem;
 		background-color: var(--c2);
 		position: absolute;
@@ -57,47 +57,27 @@ const Header2 = styled.h2`
 	@media (max-width: 1700px) {
 		::before,
 		::after {
-			width: 35rem;
-		}
-	}
-
-	@media (max-width: 1490px) {
-		::before,
-		::after {
-			width: 30rem;
-		}
-	}
-
-	@media (max-width: 1320px) {
-		::before,
-		::after {
-			width: 25rem;
-		}
-	}
-
-	@media (max-width: 1150px) {
-		::before,
-		::after {
-			width: 20rem;
-		}
-	}
-
-	@media (max-width: 1000px) {
-		::before,
-		::after {
-			width: 15rem;
+			width: 25%;
 		}
 	}
 
 	@media (max-width: 850px) {
 		::before,
 		::after {
-			width: 10rem;
+			width: 20%;
 		}
 	}
+
+  @media (max-width: 700px){
+    ::before, ::after{
+      width: 12%;
+    }
+  }
 `
 
-const Days = ["Monday", "", "Sunday"]
+const Days = ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday", "Sunday"]
+const Months =  ["January","February","March","April","May","June","July",
+            "August","September","October","November","December"]
 
 const date = new Date()
 
@@ -111,7 +91,7 @@ const Layout = ({ children }) => {
 					<Link to="/">Daily newspaper</Link>
 				</Header>
 				<Header2>
-					{date.getDay()},{date.getMonth()} {date.getDate()},
+          {Days[date.getDay()]}, {Months[date.getMonth()]} {date.getDate()},
 					{date.getFullYear()}
 				</Header2>
 				<Nav />
