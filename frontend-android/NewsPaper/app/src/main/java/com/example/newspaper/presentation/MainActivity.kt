@@ -40,22 +40,22 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsPaperTheme {
                 val navController = rememberNavController()
-                var startDest = Screens.LoginScreen.route
+                var startDest = Screens.HomeScreen.route
                 if (cachedCredentials != null) startDest = Screens.NewsApiScreen.route
                 NavHost(navController = navController, startDestination = startDest){
                     composable(route = Screens.LoginScreen.route){
-                        LoginScreen(login = { login(navController) }){
-                            logOut(navController)
-                        }
+                        LoginScreen(login = { login(navController) })
                     }
                     composable(route = Screens.NewsApiScreen.route){
                         NewsApiScreen()
                     }
                     composable(route = Screens.DetailScreen.route){
-                        DetailScreen(navController)
+                        DetailScreen(navController, context = this@MainActivity)
                     }
                     composable(route = Screens.SettingScreen.route){
-                        SettingScreen(navController = navController)
+                        SettingScreen(navController = navController){
+                            logOut(navController)
+                        }
                     }
                     composable(route = Screens.HomeScreen.route){
                         HomeScreen(navController = navController)
@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                 override fun onSuccess(result: Credentials) {
                     cachedCredentials = result
                     Log.v("resutl","${result.accessToken}")
-                    navController.navigate(Screens.HomeScreen.route)
+                    navController.navigate(Screens.DetailScreen.route)
                 }
             })
     }
@@ -93,6 +93,7 @@ class MainActivity : ComponentActivity() {
                     cachedCredentials = null
                     cachedUserProfile = null
                     Log.v("logout","Success")
+                    navController.navigate(Screens.HomeScreen.route)
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
