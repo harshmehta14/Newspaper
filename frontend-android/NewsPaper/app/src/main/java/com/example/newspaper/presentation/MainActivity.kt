@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                         LoginScreen(login = { login(navController) })
                     }
                     composable(route = Screens.NewsApiScreen.route){
-                        NewsApiScreen()
+                        NewsApiScreen(navController = navController)
                     }
                     composable(route = Screens.DetailScreen.route){
                         DetailScreen(navController, context = this@MainActivity)

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newspaper.data.NewsRepository.NewsRepoImpl
 import com.example.newspaper.data.dclass.distributor.Distributor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,6 +15,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(val newsRepoImpl: NewsRepoImpl) : ViewModel() {
 
     val distributro = MutableLiveData<Distributor>()
+
+
 
     fun getDistributors() = viewModelScope.launch {
         distributro.value = newsRepoImpl.getDistributor()
