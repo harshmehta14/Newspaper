@@ -1,4 +1,4 @@
-# Newspaper
+# Kabootar News
 Newspaper sector has been exisiting since centuries now. And India has the largest readers around the globe. Having a massive 39% of the country population 
 reading newspaper daily.
 Newspaper industry in India has a huge market. And most people tend to think it's dying sector which is a myth. IN actual it turn up around 290bn+ every year.
