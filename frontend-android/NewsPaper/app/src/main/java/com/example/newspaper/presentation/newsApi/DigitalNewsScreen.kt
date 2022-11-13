@@ -8,6 +8,8 @@ import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -47,14 +49,21 @@ fun NewsApiScreen(viewModel: NewsApiViewModel = hiltViewModel(),navController: N
         modifier = Modifier
             .background(Color.Black)
             .fillMaxWidth()
-            .height(70.dp)
+            .height(45.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
+            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null, modifier = Modifier
+                .clickable { navController.popBackStack() }
+                .size(40.dp))
+            Spacer(modifier = Modifier.padding(39.dp))
+            Text(
+                text = "News Articles",
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color(0xFFFFE9C8))
+            )
         }
     }
 }) {
