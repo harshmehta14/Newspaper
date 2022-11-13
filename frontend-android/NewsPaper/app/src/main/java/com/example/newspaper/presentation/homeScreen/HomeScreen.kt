@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -27,42 +28,47 @@ import com.example.newspaper.presentation.screens.Screens
 @Composable
 fun HomeScreen(navController: NavController) {
     Column(
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color(0xFFD8D8D8))
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.np),
-            contentDescription = null,
-            modifier = Modifier
-                .height(150.dp)
-                .width(150.dp)
-        )
-        Spacer(modifier = Modifier.padding(20.dp))
-        Button(
-            onClick = {
-                navController.navigate(Screens.LoginScreen.route)
-            }, modifier = Modifier
-                .clip(RoundedCornerShape(40.dp))
-                .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
-                .height(LocalConfiguration.current.screenHeightDp.dp / 10),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.White
-            )
-        ) {
-            Text(
-                text = "Let's Get Started",
-                color = Color(0xFF03A9F4),
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = LocalConfiguration.current.fontScale.times(25).sp
-                )
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(550.dp)
+            .background(color = Color(0xFFD8D8D8)), contentAlignment = Alignment.TopCenter){
+            Image(
+                painter = painterResource(id = R.drawable.paper),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize()
             )
         }
-        Spacer(modifier = Modifier.padding(20.dp))
-        ChattingGuys()
+        Row() {
+
+        }
+//        Spacer(modifier = Modifier.padding(20.dp))
+//        Button(
+//            onClick = {
+//                navController.navigate(Screens.LoginScreen.route)
+//            }, modifier = Modifier
+//                .clip(RoundedCornerShape(40.dp))
+//                .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+//                .height(LocalConfiguration.current.screenHeightDp.dp / 10),
+//            colors = ButtonDefaults.buttonColors(
+//                backgroundColor = Color.White
+//            )
+//        ) {
+//            Text(
+//                text = "Let's Get Started",
+//                color = Color(0xFF03A9F4),
+//                style = TextStyle(
+//                    fontWeight = FontWeight.Bold,
+//                    fontSize = LocalConfiguration.current.fontScale.times(25).sp
+//                )
+//            )
+//        }
+
     }
 }
 
