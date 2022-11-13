@@ -1,6 +1,6 @@
 # Kabootar News.  
 
-## video 
+## video  
 link: https://www.loom.com/share/32309fba6d7240b8ac2ef42635954b2d
 
 Newspaper sector has been exisiting since centuries now. And India has the largest readers around the globe. Having a massive 39% of the country population 
