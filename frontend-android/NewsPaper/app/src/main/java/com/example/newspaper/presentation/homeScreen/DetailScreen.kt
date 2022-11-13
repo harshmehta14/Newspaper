@@ -1,26 +1,24 @@
 package com.example.newspaper.presentation.homeScreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,14 +26,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.newspaper.presentation.screens.Screens
 import com.example.newspaper.R
+import com.example.newspaper.presentation.screens.Screens
+import kotlinx.coroutines.launch
 
+val days = listOf<String>("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltViewModel(),context: Context) {
 
     val distributor by viewModel.distributro.observeAsState()
+    val coroutineScope = rememberCoroutineScope()
+    coroutineScope.launch {
+        viewModel.getDistributors()
+    }
 
+    val selectedChipIndex = remember {
+        mutableStateOf(-1)
+    }
     val settingSelected = remember {
         mutableStateOf(false)
     }
@@ -48,6 +57,11 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
     val history = remember {
         mutableStateOf(false)
     }
+
+    val index = remember {
+        mutableStateOf(0)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -57,27 +71,19 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
                     .height(50.dp)
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(
-                        verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "CHOOSE YOUR NEWSPAPER", style = TextStyle(fontSize = 10.sp))
-                        Text(text = "FOR YOUR DOORSTEP TOMORROW", style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 12.sp))
+                        Text(text = "CHOOSE YOUR NEWSPAPER", style = TextStyle(fontWeight = FontWeight.Bold,fontSize = 12.sp))
+                        Text(text = "FOR YOUR DOORSTEP TOMORROW", style = TextStyle(fontSize = 10.sp))
                     }
-//                    Box(
-//                        modifier = Modifier
-//                            .clip(
-//                                RoundedCornerShape(10.dp)
-//                            )
-//                            .height(30.dp)
-//                            .width(100.dp)
-//                            .background(Color.Green)
-//
-//                    )
+                    Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Color.White)
                 }
             }
         },floatingActionButton = {
@@ -99,95 +105,84 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
                 contentColor = Color.Black,
                 content = {
                     BottomNavigation {
-                        BottomNavigationItem(
-                            selected = profileSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                      profileSelected.value = !profileSelected.value
+                        Row(modifier = Modifier.background(color = Color.Black)) {
+                            BottomNavigationItem(
+                                selected = profileSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    profileSelected.value = !profileSelected.value
                                     settingSelected.value = false
                                     chattSelected.value = false
                                     history.value = false
                                     navController.navigate(Screens.NewsApiScreen.route)
-                            },
-                            icon = {
-                                Icon(Icons.Filled.Info, contentDescription = "Online News")
-                            },
-                            label = { Text(text = "Online News") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
+                                },
+                                icon = {
+                                    Icon(Icons.Filled.Info, contentDescription = "Online News")
+                                },
+                                label = { Text(text = "Online News") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
 
-                        BottomNavigationItem(
-                            selected = profileSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                chattSelected.value = !chattSelected.value
-                                settingSelected.value = false
-                                profileSelected.value = false
-                                history.value = false
-                                Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
-                            },
-                            icon = {
-                                Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
-                            },
-                            label = { Text(text = "Chat") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
-                        Spacer(modifier = Modifier.padding(20.dp))
-                        BottomNavigationItem(
-                            selected = profileSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                history.value = !history.value
-                                settingSelected.value = false
-                                chattSelected.value = false
-                                profileSelected.value = false
-                                navController.navigate(Screens.NewsApiScreen.route)
-                                Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
-                            },
-                            icon = {
-                                Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
-                            },
-                            label = { Text(text = "History") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
+                            BottomNavigationItem(
+                                selected = profileSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    chattSelected.value = !chattSelected.value
+                                    settingSelected.value = false
+                                    profileSelected.value = false
+                                    history.value = false
+                                    Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
+                                },
+                                icon = {
+                                    Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
+                                },
+                                label = { Text(text = "Chat") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
+                            Spacer(modifier = Modifier.padding(20.dp))
+                            BottomNavigationItem(
+                                selected = profileSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    history.value = !history.value
+                                    settingSelected.value = false
+                                    chattSelected.value = false
+                                    profileSelected.value = false
+                                    navController.navigate(Screens.NewsApiScreen.route)
+                                    Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
+                                },
+                                icon = {
+                                    Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
+                                },
+                                label = { Text(text = "History") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
 
-                        BottomNavigationItem(
-                            selected = settingSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                settingSelected.value = !settingSelected.value
-                                profileSelected.value = false
-                                chattSelected.value = false
-                                history.value = false
-                                navController.navigate(Screens.SettingScreen.route)
-                            },
-                            icon = {
-                                Icon(Icons.Filled.Settings, contentDescription = "setting")
-                            },
-                            label = { Text(text = "Setting") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
-//                        BottomNavigationItem(
-//                            selected = true,
-//                            selectedContentColor = Color.Red,
-//                            onClick = {
-//
-//                            },
-//                            icon = {
-//                                Icon(Icons.Filled.Settings, contentDescription = "setting")
-//                            },
-//                            label = { Text(text = "Setting") },
-//                            alwaysShowLabel = false,
-//                            modifier = Modifier.background(Color.Black)
-//                        )
+                            BottomNavigationItem(
+                                selected = settingSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    settingSelected.value = !settingSelected.value
+                                    profileSelected.value = false
+                                    chattSelected.value = false
+                                    history.value = false
+                                    navController.navigate(Screens.SettingScreen.route)
+                                },
+                                icon = {
+                                    Icon(Icons.Filled.Settings, contentDescription = "setting")
+                                },
+                                label = { Text(text = "Setting") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
+                        }
                     }
                 })
         },
@@ -195,11 +190,177 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .background(color = Color(0xFFFFE9C8)),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Spacer(modifier = Modifier.padding(5.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(start = 5.dp, end = 5.dp),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                days.forEachIndexed { index, s ->
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
+                            .clickable {
+                                selectedChipIndex.value = index
+                            }
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(
+                                // this is basic condition for selected chip index
+                                if (selectedChipIndex == it) Color.White
+                                else Color.Black
+                            )
+                            .padding(15.dp)
+                    ) {
+                        Text(text = s, color = if (selectedChipIndex.value == index) Color.White else Color(0xFF03A9F4))
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.padding(10.dp))
+            Text(text = "Choose Your NewsPapers",style = TextStyle(fontSize = 18.sp),
+                color = Color(0xFF03A9F4), fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.padding(10.dp))
+            distributor?.forEachIndexed { i, distributorItem ->
+                Card(
+                    modifier = Modifier
+                        .width(LocalConfiguration.current.screenWidthDp.dp - 50.dp)
+                        .height(100.dp)
+                        .background(Color.Transparent),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    val selected = remember {
+                        mutableStateOf(false)
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable { selected.value = !selected.value },
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Text(
+                            text = if(distributorItem.newspaper_variety.get(i)==null) "NewsPaper" else distributorItem.newspaper_variety.get(i),
+                            style = TextStyle(fontSize = 18.sp),
+                            color = Color(0xFF03A9F4)
+                        )
+                        RadioButton(selected = selected.value, onClick = { selected.value = !selected.value })
+                    }
+                }
+                Spacer(modifier = Modifier.padding(20.dp))
+            }
+            Spacer(modifier = Modifier.padding(50.dp))
         }
     }
 }
+
+
+//
+//Card(
+//modifier = Modifier
+//.width(LocalConfiguration.current.screenWidthDp.dp - 50.dp)
+//.height(100.dp)
+//.background(Color.Transparent),
+//shape = RoundedCornerShape(20.dp)
+//) {
+//    val selected = remember {
+//        mutableStateOf(false)
+//    }
+//    Row(
+//        modifier = Modifier.fillMaxSize().clickable { selected.value = !selected.value },
+//        horizontalArrangement = Arrangement.SpaceEvenly,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Text(
+//            text = "Hindhu",
+//            style = TextStyle(fontSize = 18.sp),
+//            color = Color(0xFF03A9F4)
+//        )
+//        RadioButton(selected = selected.value, onClick = { selected.value = !selected.value })
+//    }
+//}
+//Spacer(modifier = Modifier.padding(20.dp))
+//
+//Card(
+//modifier = Modifier
+//.width(LocalConfiguration.current.screenWidthDp.dp - 50.dp)
+//.height(100.dp)
+//.background(Color.Transparent),
+//shape = RoundedCornerShape(20.dp)
+//) {
+//    val selected = remember {
+//        mutableStateOf(false)
+//    }
+//    Row(
+//        modifier = Modifier.fillMaxSize().clickable { selected.value = !selected.value },
+//        horizontalArrangement = Arrangement.SpaceEvenly,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//
+//        Text(
+//            text = "Deccan Herald",
+//            style = TextStyle(fontSize = 18.sp),
+//            color = Color(0xFF03A9F4)
+//        )
+//        RadioButton(selected = selected.value, onClick = { selected.value = !selected.value })
+//    }
+//}
+//Spacer(modifier = Modifier.padding(20.dp))
+//
+//Card(
+//modifier = Modifier
+//.width(LocalConfiguration.current.screenWidthDp.dp - 50.dp)
+//.height(100.dp)
+//.background(Color.Transparent),
+//shape = RoundedCornerShape(20.dp)
+//) {
+//    val selected = remember {
+//        mutableStateOf(false)
+//    }
+//    Row(
+//        modifier = Modifier.fillMaxSize().clickable { selected.value = !selected.value },
+//        horizontalArrangement = Arrangement.SpaceEvenly,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//
+//        Text(
+//            text = "Prajavani",
+//            style = TextStyle(fontSize = 18.sp),
+//            color = Color(0xFF03A9F4)
+//        )
+//        RadioButton(selected = selected.value, onClick = { selected.value = !selected.value })
+//    }
+//}
+//Spacer(modifier = Modifier.padding(20.dp))
+//Card(
+//modifier = Modifier
+//.width(LocalConfiguration.current.screenWidthDp.dp - 50.dp)
+//.height(100.dp)
+//.background(Color.Transparent),
+//shape = RoundedCornerShape(20.dp)
+//) {
+//    val selected = remember {
+//        mutableStateOf(false)
+//    }
+//    Row(
+//        modifier = Modifier.fillMaxSize().clickable { selected.value = !selected.value },
+//        horizontalArrangement = Arrangement.SpaceEvenly,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//
+//        Text(
+//            text = "Buisness times",
+//            style = TextStyle(fontSize = 18.sp),
+//            color = Color(0xFF03A9F4)
+//        )
+//        RadioButton(selected = selected.value, onClick = { selected.value = !selected.value })
+//    }
