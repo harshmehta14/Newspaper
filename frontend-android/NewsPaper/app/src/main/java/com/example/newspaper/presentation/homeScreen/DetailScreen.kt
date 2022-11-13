@@ -3,12 +3,9 @@ package com.example.newspaper.presentation.homeScreen
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -19,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -32,6 +30,8 @@ import com.example.newspaper.R
 import com.example.newspaper.presentation.screens.Screens
 import kotlinx.coroutines.launch
 
+val days = listOf<String>("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltViewModel(),context: Context) {
@@ -42,6 +42,9 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
         viewModel.getDistributors()
     }
 
+    val selectedChipIndex = remember {
+        mutableStateOf(-1)
+    }
     val settingSelected = remember {
         mutableStateOf(false)
     }
@@ -68,7 +71,9 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
                     .height(50.dp)
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -100,82 +105,84 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
                 contentColor = Color.Black,
                 content = {
                     BottomNavigation {
-                        BottomNavigationItem(
-                            selected = profileSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                      profileSelected.value = !profileSelected.value
+                        Row(modifier = Modifier.background(color = Color.Black)) {
+                            BottomNavigationItem(
+                                selected = profileSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    profileSelected.value = !profileSelected.value
                                     settingSelected.value = false
                                     chattSelected.value = false
                                     history.value = false
                                     navController.navigate(Screens.NewsApiScreen.route)
-                            },
-                            icon = {
-                                Icon(Icons.Filled.Info, contentDescription = "Online News")
-                            },
-                            label = { Text(text = "Online News") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
+                                },
+                                icon = {
+                                    Icon(Icons.Filled.Info, contentDescription = "Online News")
+                                },
+                                label = { Text(text = "Online News") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
 
-                        BottomNavigationItem(
-                            selected = profileSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                chattSelected.value = !chattSelected.value
-                                settingSelected.value = false
-                                profileSelected.value = false
-                                history.value = false
-                                Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
-                            },
-                            icon = {
-                                Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
-                            },
-                            label = { Text(text = "Chat") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
-                        Spacer(modifier = Modifier.padding(20.dp))
-                        BottomNavigationItem(
-                            selected = profileSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                history.value = !history.value
-                                settingSelected.value = false
-                                chattSelected.value = false
-                                profileSelected.value = false
-                                navController.navigate(Screens.NewsApiScreen.route)
-                                Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
-                            },
-                            icon = {
-                                Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
-                            },
-                            label = { Text(text = "History") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
+                            BottomNavigationItem(
+                                selected = profileSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    chattSelected.value = !chattSelected.value
+                                    settingSelected.value = false
+                                    profileSelected.value = false
+                                    history.value = false
+                                    Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
+                                },
+                                icon = {
+                                    Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
+                                },
+                                label = { Text(text = "Chat") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
+                            Spacer(modifier = Modifier.padding(20.dp))
+                            BottomNavigationItem(
+                                selected = profileSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    history.value = !history.value
+                                    settingSelected.value = false
+                                    chattSelected.value = false
+                                    profileSelected.value = false
+                                    navController.navigate(Screens.NewsApiScreen.route)
+                                    Toast.makeText(context,"Will be available soon",Toast.LENGTH_SHORT).show()
+                                },
+                                icon = {
+                                    Icon(painter = painterResource(id = R.drawable.ic_baseline_chat_24), contentDescription = null)
+                                },
+                                label = { Text(text = "History") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
 
-                        BottomNavigationItem(
-                            selected = settingSelected.value,
-                            selectedContentColor = Color.Red,
-                            unselectedContentColor = Color.White,
-                            onClick = {
-                                settingSelected.value = !settingSelected.value
-                                profileSelected.value = false
-                                chattSelected.value = false
-                                history.value = false
-                                navController.navigate(Screens.SettingScreen.route)
-                            },
-                            icon = {
-                                Icon(Icons.Filled.Settings, contentDescription = "setting")
-                            },
-                            label = { Text(text = "Setting") },
-                            alwaysShowLabel = false,
-                            modifier = Modifier.background(Color.Black)
-                        )
+                            BottomNavigationItem(
+                                selected = settingSelected.value,
+                                selectedContentColor = Color.Red,
+                                unselectedContentColor = Color.White,
+                                onClick = {
+                                    settingSelected.value = !settingSelected.value
+                                    profileSelected.value = false
+                                    chattSelected.value = false
+                                    history.value = false
+                                    navController.navigate(Screens.SettingScreen.route)
+                                },
+                                icon = {
+                                    Icon(Icons.Filled.Settings, contentDescription = "setting")
+                                },
+                                label = { Text(text = "Setting") },
+                                alwaysShowLabel = false,
+                                modifier = Modifier.background(Color.Black)
+                            )
+                        }
                     }
                 })
         },
@@ -185,13 +192,43 @@ fun DetailScreen(navController: NavController,viewModel: DetailViewModel = hiltV
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(color = Color(0xFFFFE9C8)),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.padding(20.dp))
-            Text(text = "Choose Your NewsPapers",style = TextStyle(fontSize = 20.sp),
+
+            Spacer(modifier = Modifier.padding(5.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(start = 5.dp, end = 5.dp),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                days.forEachIndexed { index, s ->
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
+                            .clickable {
+                                selectedChipIndex.value = index
+                            }
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(
+                                // this is basic condition for selected chip index
+                                if (selectedChipIndex == it) Color.White
+                                else Color.Black
+                            )
+                            .padding(15.dp)
+                    ) {
+                        Text(text = s, color = if (selectedChipIndex.value == index) Color.White else Color(0xFF03A9F4))
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.padding(10.dp))
+            Text(text = "Choose Your NewsPapers",style = TextStyle(fontSize = 18.sp),
                 color = Color(0xFF03A9F4), fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.padding(20.dp))
+            Spacer(modifier = Modifier.padding(10.dp))
             distributor?.forEachIndexed { i, distributorItem ->
                 Card(
                     modifier = Modifier
