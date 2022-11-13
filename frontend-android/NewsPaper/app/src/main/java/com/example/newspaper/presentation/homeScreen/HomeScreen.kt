@@ -2,10 +2,12 @@ package com.example.newspaper.presentation.homeScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,42 +34,59 @@ fun HomeScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD8D8D8))
+            .background(Color(0xFFC0B4A9))
     ) {
         Box(modifier = Modifier
             .fillMaxWidth()
-            .height(550.dp)
-            .background(color = Color(0xFFD8D8D8)), contentAlignment = Alignment.TopCenter){
+            .height(570.dp)
+            .background(color = Color(0xFFC0B4A9)), contentAlignment = Alignment.TopCenter){
             Image(
                 painter = painterResource(id = R.drawable.paper),
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp))
             )
         }
-        Row() {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) { 
+                Text(text = "We Deliver at your", style = TextStyle(fontSize = 18.sp))
+                Text(
+                    text = "DOORSTEP",
+                    style = TextStyle(fontSize = 22.sp),
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
-//        Spacer(modifier = Modifier.padding(20.dp))
-//        Button(
-//            onClick = {
-//                navController.navigate(Screens.LoginScreen.route)
-//            }, modifier = Modifier
-//                .clip(RoundedCornerShape(40.dp))
-//                .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
-//                .height(LocalConfiguration.current.screenHeightDp.dp / 10),
-//            colors = ButtonDefaults.buttonColors(
-//                backgroundColor = Color.White
-//            )
-//        ) {
-//            Text(
-//                text = "Let's Get Started",
-//                color = Color(0xFF03A9F4),
-//                style = TextStyle(
-//                    fontWeight = FontWeight.Bold,
-//                    fontSize = LocalConfiguration.current.fontScale.times(25).sp
-//                )
-//            )
-//        }
+        Spacer(modifier = Modifier.padding(5.dp))
+        Button(
+            onClick = {
+                navController.navigate(Screens.LoginScreen.route)
+            }, modifier = Modifier
+                .clip(RoundedCornerShape(30.dp))
+                .border(width = 2.dp, color = Color(0xFFB17E42), shape = RoundedCornerShape(30.dp))
+                .width(LocalConfiguration.current.screenWidthDp.dp - 45.dp)
+                .height(LocalConfiguration.current.screenHeightDp.dp / 12),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.White
+            )
+        ) {
+            Text(
+                text = "Let's Get Started",
+                color = Color(0xFFB17E42),
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = LocalConfiguration.current.fontScale.times(25).sp
+                )
+            )
+        }
 
     }
 }
