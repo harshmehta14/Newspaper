@@ -3,6 +3,9 @@ import Layout from "../components/layout"
 import "../components/styles/global.css"
 import styled from "styled-components"
 import homepage from "../images/news.jpeg"
+import facebook from "../images/facebook.svg"
+import instagram from "../images/instagram.svg"
+import twitter from "../images/twitter.svg"
 
 const MainContainer = styled.div`
 	display: flex;
@@ -60,8 +63,7 @@ const IndexPage = () => {
         		<p>Problems faced by the customer:
 					<ul>
 						<li>Difficulty in finding a supplier in the locality</li>
-						<li>Lack of a reminder for when payments should be made</li>
-						<li>Lack of communication with the supplier</li></ul></p>
+						<li>Lack of a reminder for when payments should be made</li></ul></p>
 						{/* <p>Problems faced by the paperboys and suppliers:
 							<ul>
 								<li></li>
@@ -71,7 +73,18 @@ const IndexPage = () => {
 				<Midsection><h2>What we hope to accomplish</h2>
 				<img src={homepage} height="90%" width="70%"/>
         </Midsection>
-				<Sidesection><h3>Contact</h3></Sidesection>
+				<Sidesection><h3>Contact Us</h3><p></p>
+				<p>+91-9123456789</p>
+				<p>contact@Kabootar.co</p>
+				<p>Reva University, Bangalore 560064</p>
+				<p></p>
+				<h3>Social</h3><p></p>
+				<span><img src={facebook} height="10%" ></img>  - Facebook</span><br></br><br></br>
+				<span><img src={instagram} height="10%" ></img>  - Instagram</span><br></br><br></br>
+				<span><img src={twitter} height="10%" ></img>  - Twitter</span><br></br><br></br>
+				
+				</Sidesection>
+				
 			</MainContainer>
 		</Layout>
 	)

@@ -1,6 +1,9 @@
 import React from "react"
 import { Auth0Provider } from "@auth0/auth0-react"
 import { navigate } from "gatsby"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import "@popperjs/core/dist/umd/popper.min.js";
 
 const onRedirectCallback = (appState) => {
 	// Use Gatsby's navigate method to replace the url

@@ -5,8 +5,8 @@ import { alert } from "../components/styles/layout.module.css"
 import styled from "styled-components"
 
 const UserInfo = styled.div`
-	margin: -10rem auto;
-	width: 30rem;
+	margin: 5rem auto;
+	width: 29rem;
 
 	span {
 		display: inline-block;
@@ -28,13 +28,13 @@ const Account = () => {
 				<UserInfo>
 					<h2>Welcome User!</h2>
 					<p>
-						Name: <span>placeholder Name here</span>
+						Name: <span>John Mathew</span>
 					</p>
 					<p>
 						Email address: <span>{user.email}</span>
 					</p>
 					<p>
-						Address: <span>placeholder address here</span>
+						Address: <span>Hebbal, Bangalore</span>
 					</p>
 				</UserInfo>
 			)}

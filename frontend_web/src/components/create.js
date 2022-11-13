@@ -6,6 +6,7 @@ export default function Create() {
 		email: "",
 		phno: "",
 		address: "",
+		collection:"users",
 	})
 
 	// These methods will update the state properties.
@@ -19,9 +20,9 @@ export default function Create() {
 	async function onSubmit(e) {
 		e.preventDefault()
 
-		const newPerson = { ...form }
-
-		await fetch("https://node-backend.harshmehta13.repl.co", {
+		const newPerson = { ...form ,collection:"users"}
+		console.log(newPerson)
+		await fetch("https://node-backend.harshmehta13.repl.co/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -32,7 +33,7 @@ export default function Create() {
 			return
 		})
 
-		setForm({ name: "", email: "", phno: "", address: "" })
+		setForm({ name: "", email: "", phno: "", address: "" ,collection:"users"})
 	}
 
 	return (
@@ -40,7 +41,7 @@ export default function Create() {
 			<h3>Create a new entry</h3>
 			<form onSubmit={onSubmit}>
 				<div>
-					<label htmlFor="name">Name</label>
+					<label htmlFor="name">Name</label><br></br>
 					<input
 						type="text"
 						id="name"
@@ -48,8 +49,9 @@ export default function Create() {
 						onChange={(e) => updateForm({ name: e.target.value })}
 					/>
 				</div>
+				<br></br>
 				<div>
-					<label htmlFor="email">Email address</label>
+					<label htmlFor="email">Email address</label><br></br>
 					<input
 						type="text"
 						id="position"
@@ -57,8 +59,9 @@ export default function Create() {
 						onChange={(e) => updateForm({ email: e.target.value })}
 					/>
 				</div>
+				<br></br>
 				<div>
-					<label htmlFor="phone number">Phone Number</label>
+					<label htmlFor="phone number">Phone Number</label><br></br>
 					<input
 						type="text"
 						id="phno"
@@ -66,8 +69,9 @@ export default function Create() {
 						onChange={(e) => updateForm({ phno: e.target.value })}
 					/>
 				</div>
+				<br></br>
 				<div>
-					<label htmlFor="address">Address</label>
+					<label htmlFor="address">Address</label><br></br>
 					<input
 						type="text"
 						id="address"
@@ -77,6 +81,8 @@ export default function Create() {
 						}
 					/>
 				</div>
+				<br></br>
+				
 
 				<div className="form-group">
 					<input

@@ -88,7 +88,7 @@ const Layout = ({ children }) => {
 			<LogoutLink />
 			<Container>
 				<Header>
-					<Link to="/">Daily newspaper</Link>
+					<Link to="/">Kabootar Newspaper</Link>
 				</Header>
 				<Header2>
           {Days[date.getDay()]}, {Months[date.getMonth()]} {date.getDate()},

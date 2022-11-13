@@ -73,9 +73,7 @@ export default function Nav() {
 				<li>
 					<Link to="/">Home</Link>
 				</li>
-				<li>
-					<Link to="/account">Account</Link>
-				</li>
+				
 				<li>
 					<Link to="/customers">Customers</Link>
 				</li>
@@ -84,6 +82,9 @@ export default function Nav() {
 				</li>
 				<li>
 					<Link to="/distribution">Distribution</Link>
+				</li>
+				<li>
+					<Link to="/account">Profile</Link>
 				</li>
 				{!isAuthenticated && (
 					<li>

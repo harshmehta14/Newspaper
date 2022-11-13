@@ -21,9 +21,39 @@ const Customers = () => {
 			)}
 			{isAuthenticated && (
 				<>
-					<h1>You have logged in and can view this page!</h1>
-					<button onClick={HandleDisplay}>Add customers</button>
+					{/* <h1>You have logged in and can view this page!</h1> */}
+					<button class="btn btn-info" onClick={HandleDisplay}>Add customers</button>
 					{display && <Create />}
+					<table class="table table-striped">
+					<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Email</th>
+						<th scope="col">Phone No</th>
+						<th scope="col">Address</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>John Mathew</td>
+						<td>johnmathew12@gmail.com</td>
+						<td>+91789436955</td>
+						<td>Belahali cross, Banagalore</td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td>Sanjay</td>
+						<td>sanjayverma@gmail.com</td>
+						<td>+918794521365</td>
+						<td>Hebbal, Bangalore</td>
+					</tr>
+				
+					</tbody>
+					</table>
+				
+				
 				</>
 			)}
 		</Layout>
