@@ -2,6 +2,7 @@ package com.example.newspaper.presentation.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -14,48 +15,63 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.newspaper.R
+import com.example.newspaper.presentation.screens.Screens
 
 @Composable
 fun LoginScreen(login : () ->Unit) {
     Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Black),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(Color(0xFFC0B4A9))
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().background(Color(0xEEFFFFFF)),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(570.dp)
+            .background(color = Color(0xFFC0B4A9)), contentAlignment = Alignment.TopCenter){
             Image(
-                painter = painterResource(id = R.drawable.news),
+                painter = painterResource(id = R.drawable.paper),
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth().height(560.dp)
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp))
             )
         }
-//        Spacer(modifier = Modifier.padding(20.dp))
-//        Text(text = "Click to login", fontSize = 20.sp, fontWeight = FontWeight.Bold,color = Color(0xFF03A9F4))
-        Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { login.invoke() }, modifier = Modifier
-            .clip(RoundedCornerShape(10.dp))
-            .width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
-            .height(LocalConfiguration.current.screenHeightDp.dp / 12),
+
+        Spacer(modifier = Modifier.padding(15.dp))
+        Text(
+            text = "DOORSTEP",
+            style = TextStyle(fontSize = 22.sp),
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.padding(5.dp))
+        Button(
+            onClick = {
+                login.invoke()
+            }, modifier = Modifier
+                .clip(RoundedCornerShape(30.dp))
+                .border(width = 2.dp, color = Color(0xFFB17E42), shape = RoundedCornerShape(30.dp))
+                .width(LocalConfiguration.current.screenWidthDp.dp - 45.dp)
+                .height(LocalConfiguration.current.screenHeightDp.dp / 12),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.White
             )
         ) {
-            Text(text = "Login",fontSize = 20.sp, color = Color(0xFF03A9F4), fontWeight = FontWeight.Bold)
+            Text(
+                text = "LOGIN",
+                color = Color(0xFFB17E42),
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = LocalConfiguration.current.fontScale.times(25).sp
+                )
+            )
         }
-//        Spacer(modifier = Modifier.padding(20.dp))
-//        Button(onClick = { logOut.invoke() }) {
-//            Text(text = "LogOut")
-//        }
+
     }
 }
