@@ -2,6 +2,7 @@ import * as React from "react"
 import Layout from "../components/layout"
 import "../components/styles/global.css"
 import styled from "styled-components"
+import homepage from "../images/news.jpeg"
 
 const MainContainer = styled.div`
 	display: flex;
@@ -18,16 +19,18 @@ const Sidesection = styled.section`
 
   h3{
     margin-top: 0;
-    font-size: 1.8rem;
+    font-size: 2rem;
 	margin-bottom: 0;
   }
-
+ p{
+	font-size: 1.3rem
+ }
   ul {
 	padding-left: 0.8rem;
   }
 
   ul li{
-	font-size: 0.9rem;
+	font-size: 1.1rem;
   }
 `
 
@@ -43,6 +46,9 @@ const Midsection = styled.section`
     margin-top: 0;
 	font-size: 2.1rem;
   }
+  img{
+	margin:0 6rem;
+  }
 `
 
 const IndexPage = () => {
@@ -56,15 +62,16 @@ const IndexPage = () => {
 						<li>Difficulty in finding a supplier in the locality</li>
 						<li>Lack of a reminder for when payments should be made</li>
 						<li>Lack of communication with the supplier</li></ul></p>
-						<p>Problems faced by the paperboys and suppliers:
+						{/* <p>Problems faced by the paperboys and suppliers:
 							<ul>
 								<li></li>
 							</ul>
-						</p>
+						</p> */}
 						</Sidesection>
 				<Midsection><h2>What we hope to accomplish</h2>
+				<img src={homepage} height="90%" width="70%"/>
         </Midsection>
-				<Sidesection>content</Sidesection>
+				<Sidesection><h3>Contact</h3></Sidesection>
 			</MainContainer>
 		</Layout>
 	)
